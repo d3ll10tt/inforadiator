@@ -54,7 +54,8 @@ def rpm_inventory_searchable():
             print("select")
             selected_items = all_platform_facts.get_all_packages()
 
-
+    else:
+        print("first time landing")
         pprint(selected_items)
 
 
@@ -62,7 +63,7 @@ def rpm_inventory_searchable():
         environments = all_platform_facts.get_environment_names()
         tables = []
         for env in environments:
-            tables.append({env: all_platform_facts.return_table_data(env)})
+            tables.append({env: all_platform_facts.return_table_data(env, selected_items)})
     except ansible_facts.AnsibleException as e:
         print(e)
 

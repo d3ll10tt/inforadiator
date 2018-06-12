@@ -82,16 +82,16 @@ class AnsibleFacts:
 
         return sorted(list(self._installed_packages))
 
-    def return_table_data(self, environment):
+    def return_table_data(self, environment, items):
 
         table = []
-        header_row = [''] + sorted(list(self._installed_packages))
+        header_row = [''] + sorted(items)
         table.append(header_row)
 
         for host in sorted(self._facts[environment].keys()):
             host_packages = self._facts[environment][host]['savvi_versions'].keys()
             host_row = [host]
-            for pkg in sorted(list(self._installed_packages)):
+            for pkg in sorted(items):
 
                 if pkg in host_packages:
                     host_row.append(self._facts[environment][host]['savvi_versions'][pkg])
