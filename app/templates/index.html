@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+<head><link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/table.css') }}"></head>
+{% block app_content %}
+<div class="page-header">
+    <h1>Platform Info Radiator
+        <small>A web-application for reporting on Platform pipeline and repo status</small>
+    </h1>
+</div>
+<div class="jumbotron">
+    <dl>
+        <dt>RPM Reports</dt>
+        <dd>Reporting utility to run report RPM versions across the Platform environments.</dd>
+        <dt>Gitlab Dashboard</dt>
+        <dd>Shows active develop branches and how many commits they are ahead of master</dd>
+        <dl>
+            <p><a href={{ url_for('rpm_inventory') }} class="btn btn-primary btn-lg">RPM Reports</a>
+            <a href={{ url_for('index') }} class="btn btn-primary btn-lg">Gitlab Dashboard</a></p>
+
+</div>
+{% endblock %}

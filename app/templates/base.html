@@ -1,0 +1,27 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}
+    {% if title %}{{ title }} - Platform Info Radiator{% else %}Welcome to Platform Info Radiator{% endif %}
+{% endblock %}
+
+{% block navbar %}
+    <nav class="navbar navbar-expand navbar-dark bg-primary">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{{ url_for('index') }}">Platform Info Radiator Home</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a class="nav-link" href="{{ url_for('rpm_inventory_searchable') }}">RPM Reports</a></li>
+                    <li><a class="nav-link" href="{{ url_for('index') }}">&nbsp;Gitlab Dashboard</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        {% block app_content %}{% endblock %}
+    </div>
+{% endblock %}

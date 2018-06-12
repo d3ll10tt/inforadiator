@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block app_content %}
+<style>
+    .table > thead:first-child > tr:first-child > th:first-child {
+    position: absolute;
+    display: inline-block;
+
+
+}
+
+.table > tbody > tr > td:first-child {
+    position: absolute;
+    display: inline-block;
+    background-color: white;
+
+}
+
+.table > thead:first-child > tr:first-child > th:nth-child(2) {
+    padding-left: 200px;
+}
+
+.table > tbody > tr > td:nth-child(2) {
+    padding-left: 200px !important;
+}
+</style>
+<h1>RPM Inventory Reports</h1>
+
+<p>Select one or more environments to view: </p>
+<div class="btn-group-toggle" data-toggle="button">
+    {% for env_name in env_names %}
+    <label class="btn btn-primary" href="#{{env_name}}" data-toggle="collapse">
+        <input type="checkbox" checked autocomplete="off"> {{env_name}}
+    </label>
+    {% endfor %}
+        <label class="btn btn-primary" href="#packages" data-toggle="collapse">
+        <input type="checkbox" checked autocomplete="off"> Select Packages to Show
+    </label>
+</div>
+
+<div id="packages" class="collapse">
+    <ul>
+    <form method='POST' action="{{ url_for('rpm_inventory_searchable') }}">
+        <div class="form-group">
+        {% for i in pkg_names %}
+        <li><label class="control-label">{{i}}</label>
+        {% if i in selected_items %}
+            <input type="checkbox" checked="checked" name="test" value="{{i}}">
+        {% else %}
+            <input type="checkbox" name="test" value="{{i}}">
+        {% endif %}
+        {% endfor %}
+            <p></p>
+    <input class="btn-primary" name="action" type="submit" action="submit" value="Update Package List">
+            <input class="btn-primary" name="action" type="submit" action="submit" value="Deselect All">
+            <input class="btn-primary" name="action" type="submit" action="submit" value="Select All">
+                    </div>
+
+    </form>
+    </ul>
+</div>
+
+
+{% for env_entry in tables %}
+{%for env, table in env_entry.items() %}
+<div id="{{env}}" class="collapse">
+    <h2>{{env.upper()}}</h2>
+    <table class="table tables-sm table-hover table-bordered table-condensed table-responsive">
+        {% set headers = table.pop(0) %}
+        <thead class="thead-light">
+        <tr>
+            {% for header in headers %}
+            <th nowrap=nowrap">{{header}}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        {% for row in table %}
+        <tr>
+
+            {% for cell in row %}
+            <td nowrap>&nbsp;{{cell}}&nbsp;</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endfor %}
+{% endfor %}
+{% endblock %}
+
+
